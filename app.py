@@ -44,20 +44,28 @@ session = Session()
 import argparse
 
 def add_student():
-    name = input("Enter student name: ")
-    age = int(input("Enter student age: "))
-    student = Student(name=name, age=age)
-    session.add(student)
-    session.commit()
-    print(f"Added student: {name}")
+    try:
+        name = input("Enter student name: ")
+        age = int(input("Enter student age: "))
+        student = Student(name=name, age=age)
+        session.add(student)
+        session.commit()
+        print(f"Added student: {name}")
+    except Exception as e:
+        session.rollback()
+        print(f"An error occurred: {e}")
 
 def add_subject():
-    name = input("Enter subject name: ")
-    course = Course(name=name)
-    session.add(course)
-    session.commit()
-    print(f"Added subject: {name}")
-
+    try:
+        name = input("Enter subject name: ")
+        course = Course(name=name)
+        session.add(course)
+        session.commit()
+        print(f"Added subject: {name}")
+    except Exception as e:
+        session.rollback()
+        print(f"An error occurred: {e}")
+        
 def add_grade():
     student_id = int(input("Enter student ID: "))
     course_id = int(input("Enter subject ID: "))
